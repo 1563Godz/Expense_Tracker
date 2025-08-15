@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="user-info" id="userInfo">
+      <span class="user-icon"><i class="fa-solid fa-user"></i></span>
+      <div>
+        <div class="user-name" id="nav-username"></div>
+        <div class="user-email" id="nav-email"></div>
+      </div>
+      <span class="dropdown-icon"><i class="fa-solid fa-chevron-down"></i></span>
+      <ul class="dropdown-menu" id="dropdownMenu">
+        <li><button id="logoutBtn" style="color:#18181a;font-weight:600;"><i class="fa-solid fa-right-from-bracket"></i> Logout</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <main class="main-content">
+      <h1>
+        <i class="fa-solid fa-wallet"></i> Expense Tracker
+      </h1>
+
+      <div class="summary-cards">
+        <div class="summary-card day active" data-period="day">
+          <div class="amount" id="amount-day">0.00</div>
+          <div class="label"><i class="fa-regular fa-calendar-day"></i> Day</div>
+        </div>
+        <div class="summary-card month" data-period="month">
+          <div class="amount" id="amount-month">0.00</div>
+          <div class="label"><i class="fa-regular fa-calendar"></i> Month</div>
+        </div>
+        <div class="summary-card year" data-period="year">
+          <div class="amount" id="amount-year">0.00</div>
+          <div class="label"><i class="fa-regular fa-calendar-check"></i> Year</div>
+        </div>
+      </div>
+
+      <section class="tabs-filters-row">
+        <div class="tabs">
+          <button class="tab active" data-type="expense"><i class="fa-solid fa-arrow-down"></i> Expenses</button>
+          <button class="tab" data-type="income"><i class="fa-solid fa-arrow-up"></i> Income</button>
+        </div>
+        <div class="filters">
+          <select id="date-select">
+            <option>Today</option>
+            <option>Yesterday</option>
+            <option>Last 7 Days</option>
+            <option>Last 30 Days</option>
+          </select>
+          <select id="month-select">
+            <option>January</option><option>February</option><option>March</option><option>April</option>
+            <option>May</option><option>June</option><option>July</option><option>August</option>
+            <option>September</option><option>October</option><option>November</option><option>December</option>
+          </select>
+          <select id="year-select">
+            <option>2025</option>
+          </select>
+          <select id="tag-select-expense">
+            <option>All Tags</option><option>Home</option><option>Food</option>
+            <option>Shopping</option><option>Other</option>
+          </select>
+          <select id="tag-select-income" style="display:none">
+            <option>All Tags</option><option>Salary</option><option>Freelance</option>
+            <option>Gift</option><option>Other</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="expense-list" id="expense-list"></section>
+        <ul id="transaction-list"> </ul>
+      <section class="income-list" id="income-list" style="display:none"></section>
+        <ul id="transaction-list"></ul>
+    </main>
+
+    <aside class="side-panel">
+      <div class="side-header">
+        <div class="side-month" id="side-month"></div>
+        <div class="side-date" id="side-date"></div>
+        <div class="side-balance" id="side-balance">0.00</div>
+        <div class="side-balance-label">Current Money</div>
+      </div>
+
+      <div class="side-gain-loss">
+        <div class="gain">
+          <div class="label"><i class="fa-solid fa-plus"></i> Gain</div>
+          <div class="amount" id="gain-amount">0.00</div>
+        </div>
+        <div class="loss">
+          <div class="label"><i class="fa-solid fa-minus"></i> Loss</div>
+          <div class="amount" id="loss-amount">0.00</div>
+        </div>
+      </div>
+
+      <div class="side-tabs">
+        <button class="tab active" data-side="expense"><i class="fa-solid fa-arrow-down"></i> Expenses</button>
+        <button class="tab" data-side="income"><i class="fa-solid fa-arrow-up"></i> Income</button>
+      </div>
+
+      <div class="side-form" id="side-expense-list">
+        <div class="side-expense-header-row">
+          <span class="side-expense-header-tag">Tag</span>
+          <span class="side-expense-header-amount">Amount</span>
+        </div>
+        <div id="side-expense-items"></div>
+        <button class="side-add-btn" data-form="expense"><i class="fa-solid fa-circle-plus"></i> Add Transaction</button>
+        <form class="side-form-inner" id="side-expense-form" style="display:none">
+          <select name="tag">
+            <option>Select Tag</option><option>Home</option><option>Food</option>
+            <option>Shopping</option><option>Other</option>
+          </select>
+          <input name="amount" type="number" min="0" step="0.01" placeholder="Amount" required />
+          <textarea name="description" placeholder="Note"></textarea>
+          <div>
+            <button type="button" class="side-cancel-btn"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <button type="submit" class="side-save-btn"><i class="fa-solid fa-save"></i> Save</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="side-form" id="side-income-list" style="display:none">
+        <div class="side-income-header-row">
+          <span class="side-income-header-tag">Tag</span>
+          <span class="side-income-header-amount">Amount</span>
+        </div>
+        <div id="side-income-items"></div>
+        <button class="side-add-btn" data-form="income"><i class="fa-solid fa-circle-plus"></i> Add Transaction</button>
+        <form class="side-form-inner" id="side-income-form" style="display:none">
+          <select name="tag">
+            <option>Select Tag</option><option>Salary</option><option>Freelance</option>
+            <option>Gift</option><option>Other</option>
+          </select>
+          <input name="amount" type="number" min="0" step="0.01" placeholder="Amount" required />
+          <textarea name="description" placeholder="Note"></textarea>
+          <div>
+            <button type="button" class="side-cancel-btn"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <button type="submit" class="side-save-btn"><i class="fa-solid fa-save"></i> Save</button>
+          </div>
+        </form>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>

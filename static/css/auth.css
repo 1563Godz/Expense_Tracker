@@ -1,0 +1,120 @@
+/* auth.css */
+
+/* Container centering the auth card */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+/* Card holding the form */
+.auth-card {
+  background: var(--color-card);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Form heading */
+.auth-card h2 {
+  margin-bottom: var(--spacing);
+  text-align: center;
+  color: var(--color-text);
+}
+
+/* Grouping label + input */
+.form-group {
+  margin-bottom: var(--spacing);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  font-family: var(--font-stack);
+}
+
+/* Inline error message under form fields */
+.error-message {
+  color: var(--color-expense);
+  min-height: 1.2em;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Primary button styling */
+.btn-primary {
+  width: 100%;
+  padding: 0.7rem;
+  background: #2980b9;
+  border: none;
+  border-radius: var(--radius);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background var(--transition);
+  font-family: var(--font-stack);
+}
+
+.btn-primary:hover {
+  background: #2980b9;
+}
+
+/* Footer text below form */
+.auth-footer {
+  text-align: center;
+  margin-top: var(--spacing);
+  font-size: 0.9rem;
+}
+
+.auth-footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 0.5rem;
+    min-height: 80vh;
+  }
+
+  .auth-card {
+    padding: 1rem;
+    max-width: 95vw;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .auth-card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .form-group input {
+    font-size: 1rem;
+    padding: 0.4rem;
+  }
+
+  .btn-primary {
+    font-size: 0.97rem;
+    padding: 0.5rem;
+  }
+
+  .auth-footer {
+    font-size: 0.85rem;
+    margin-top: 0.7rem;
+  }
+}
